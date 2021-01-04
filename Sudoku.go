@@ -1,54 +1,40 @@
 package main
 
-import "fmt"
-
-func checkthreecrossthree(sudoku [][]int, m int, n int, curval int) bool {
-	//defer fmt.Println("Completed check")
-	count := 0
-	//fmt.Println(curval, " ", m, " ", n)
-	//fmt.Println()
-	for i := m; i < m+3; i++ {
-		for j := n; j < n+3; j++ {
-			//fmt.Print(sudoku[i][j], " ")
-			if curval == sudoku[i][j] {
-				count++
-			}
-		}
-		//fmt.Println()
-	}
-	if count > 1 {
-		return false
-	}
-	return true
-}
+import (
+	"fmt"
+	"strconv"
+)
 
 func checksudoku(sudoku [][]int) bool {
 
-	for i := 0; i < 9; i++ {
-		for j := 0; j < 9; j++ {
+	hashmap := make(map[string]int)
+	for i := 0; i < len(sudoku); i++ {
+		for j := 0; j < len(sudoku[i]); j++ {
+			row := strconv.Itoa(sudoku[i][j]) + " row " + strconv.Itoa(i)
+			col := strconv.Itoa(sudoku[i][j]) + " col " + strconv.Itoa(j)
+			box := strconv.Itoa(sudoku[i][j]) + " box " + strconv.Itoa((i/3)*3) + " " + strconv.Itoa((j/3)*3)
 
-			curval := sudoku[i][j]
-
-			for k := j + 1; k < 9; k++ {
-				if curval == sudoku[i][k] || curval < 1 || curval > 9 {
-					return false
-				}
-			}
-
-			for k := i + 1; k < 9; k++ {
-				if curval == sudoku[k][j] || curval < 1 || curval > 9 {
-					return false
-				}
-			}
-
-			m := (i / 3) * 3
-			n := (j / 3) * 3
-
-			if !(checkthreecrossthree(sudoku, m, n, curval)) {
+			if _, ok := hashmap[row]; ok {
+				fmt.Println(row)
 				return false
 			}
 
+			if _, ok := hashmap[col]; ok {
+				fmt.Println(col)
+				return false
+			}
+
+			if _, ok := hashmap[box]; ok {
+				fmt.Println(box)
+				return false
+			}
+
+			hashmap[row] = sudoku[i][j]
+			hashmap[col] = sudoku[i][j]
+			hashmap[box] = sudoku[i][j]
+
 		}
+		fmt.Println()
 	}
 
 	return true
