@@ -86,7 +86,7 @@ func addContactPrefix(users []User, techDetails []Tech, contactDetails []Contact
 		merged[i] = mergeuser
 	}
 	file, _ := json.MarshalIndent(merged, "", " ")
-	_ = ioutil.WriteFile("megeruser.json", file, 0644)
+	_ = ioutil.WriteFile("mergeuser.json", file, 0644)
 
 	mapuser := make(map[int]MergeUser)
 	for _, val := range merged {
