@@ -131,7 +131,7 @@ func main() {
 	var contactDetails []Contact
 	err6 := json.Unmarshal([]byte(contactcontent), &contactDetails)
 	if err6 != nil {
-		fmt.Println("Error JSON Unmarshling for tech file")
+		fmt.Println("Error JSON Unmarshling for contact file")
 		fmt.Println(err6.Error())
 
 	}
